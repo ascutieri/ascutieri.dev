@@ -22,5 +22,6 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<h1>{ post.data.title }</h1>
-<Content />
+<article class="prose lg:prose-xl">
+    <Content />
+</article>
