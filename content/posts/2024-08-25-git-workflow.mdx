@@ -1,0 +1,178 @@
+---
+title: "Git Workflow Guide: Collaboration Best Practices"
+description: "Master Git workflows and collaboration practices for teams of any size."
+pubDate: 2024-08-25
+---
+
+# Git Workflow Guide: Collaboration Best Practices
+
+A well-organized Git workflow is essential for team productivity. Let's explore proven approaches.
+
+## Common Git Workflows
+
+### Feature Branch Workflow
+
+```bash
+# Create feature branch
+git checkout -b feature/user-authentication
+
+# Make commits
+git add .
+git commit -m "Add login form"
+
+# Push to remote
+git push origin feature/user-authentication
+
+# Create Pull Request
+# After review, merge to main
+git checkout main
+git merge feature/user-authentication
+```
+
+### Git Flow
+
+A more structured approach:
+
+```
+main (production)
+  ├─ hotfix/fix-critical-bug
+release (staging)
+  ├─ release/v1.2.0
+develop (development)
+  ├─ feature/new-feature
+  ├─ feature/another-feature
+  └─ bugfix/fix-issue
+```
+
+## Commit Message Best Practices
+
+### Conventional Commits
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+### Types
+
+| Type | Purpose | Example |
+|------|---------|---------|
+| `feat` | New feature | `feat(auth): add password reset` |
+| `fix` | Bug fix | `fix(api): handle null response` |
+| `docs` | Documentation | `docs: update README` |
+| `style` | Code style | `style: format with prettier` |
+| `refactor` | Code refactoring | `refactor: extract utility function` |
+| `test` | Add tests | `test: add login tests` |
+| `chore` | Maintenance | `chore: update dependencies` |
+
+### Good vs Bad Commits
+
+```bash
+# ❌ Bad
+git commit -m "fix"
+git commit -m "updates"
+git commit -m "asdf"
+
+# ✅ Good
+git commit -m "fix: resolve null pointer in user service"
+git commit -m "feat: add email verification to signup"
+git commit -m "docs: document API endpoints"
+```
+
+## Branching Strategy
+
+### Branch Naming
+
+```
+feature/{feature-name}
+bugfix/{bug-name}
+hotfix/{issue-name}
+release/{version}
+docs/{topic}
+```
+
+### Example
+
+```bash
+# Create and switch to feature branch
+git checkout -b feature/payment-integration
+
+# Make work and commit
+git add .
+git commit -m "feat: integrate stripe payment"
+
+# Keep feature branch updated
+git fetch origin
+git rebase origin/main
+
+# Push and create PR
+git push origin feature/payment-integration
+```
+
+## Merge Strategies
+
+| Strategy | Description | Use Case |
+|----------|-------------|----------|
+| Merge commit | Creates merge commit | Maintain history |
+| Rebase | Linear history | Clean timeline |
+| Squash | Single commit | Feature branches |
+
+## Useful Git Commands
+
+```bash
+# View commit history
+git log --oneline --graph --all
+
+# Undo last commit (keep changes)
+git reset --soft HEAD~1
+
+# Undo last commit (discard changes)
+git reset --hard HEAD~1
+
+# Interactive rebase
+git rebase -i HEAD~3
+
+# Cherry-pick specific commit
+git cherry-pick <commit-hash>
+
+# Search commit messages
+git log --grep="keyword"
+
+# Stash changes temporarily
+git stash
+git stash pop
+```
+
+## Pull Request Template
+
+```markdown
+## Description
+Brief description of changes
+
+## Related Issue
+Fixes #123
+
+## Type of Change
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Breaking change
+
+## Testing
+- [ ] Unit tests added
+- [ ] Integration tests added
+- [ ] Manual testing completed
+
+## Checklist
+- [ ] Code follows style guidelines
+- [ ] Self-review completed
+- [ ] Comments added for complex logic
+- [ ] Documentation updated
+- [ ] No new warnings generated
+```
+
+---
+
+*Master Git, collaborate effectively, and build better software together!*

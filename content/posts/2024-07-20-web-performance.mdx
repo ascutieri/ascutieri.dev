@@ -1,0 +1,135 @@
+---
+title: "Web Performance Optimization: Speed Up Your Site"
+description: "Essential techniques to optimize your website's performance and improve user experience."
+pubDate: 2024-07-20
+---
+
+# Web Performance Optimization: Speed Up Your Site
+
+Website speed directly impacts user experience and SEO rankings. Here are proven optimization techniques.
+
+## Core Web Vitals
+
+Google's metrics for measuring website quality:
+
+| Metric | Measure | Good | Poor |
+|--------|---------|------|------|
+| LCP | Largest Contentful Paint | < 2.5s | > 4s |
+| FID | First Input Delay | < 100ms | > 300ms |
+| CLS | Cumulative Layout Shift | < 0.1 | > 0.25 |
+
+## Image Optimization
+
+### Responsive Images
+
+```html
+<!-- Use srcset for different screen sizes -->
+<img
+  src="image-400w.jpg"
+  srcset="
+    image-400w.jpg 400w,
+    image-800w.jpg 800w,
+    image-1200w.jpg 1200w"
+  sizes="(max-width: 600px) 100vw, 50vw"
+  alt="Description"
+/>
+
+<!-- Use picture for different formats -->
+<picture>
+  <source srcset="image.webp" type="image/webp" />
+  <source srcset="image.png" type="image/png" />
+  <img src="image.png" alt="Description" />
+</picture>
+```
+
+### Compression
+
+```javascript
+// Before: 250KB
+// After (WebP): 85KB
+// After (AVIF): 45KB
+```
+
+## Code Splitting
+
+### Dynamic Imports
+
+```javascript
+// Instead of loading everything at once
+import { heavyModule } from './heavy'; // ❌ Large bundle
+
+// Load only when needed
+const loadHeavy = async () => {
+  const { heavyModule } = await import('./heavy');
+  return heavyModule;
+};
+```
+
+## Caching Strategies
+
+```javascript
+// Cache bust with version hash
+<script src="/app.abc123.js"></script>
+
+// Service Worker caching
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open('v1').then(cache => {
+      return cache.addAll([
+        '/',
+        '/styles/main.css',
+        '/scripts/app.js'
+      ]);
+    })
+  );
+});
+```
+
+## Performance Checklist
+
+- [ ] Minimize JavaScript bundles
+- [ ] Optimize images (use WebP, compress)
+- [ ] Enable GZIP compression
+- [ ] Implement lazy loading
+- [ ] Use CDN for static assets
+- [ ] Minimize CSS and JavaScript
+- [ ] Remove unused dependencies
+- [ ] Set appropriate cache headers
+- [ ] Defer non-critical JavaScript
+- [ ] Monitor with tools like Lighthouse
+
+## Tools for Measurement
+
+1. **Lighthouse** - Google's performance audit tool
+2. **WebPageTest** - Detailed performance analysis
+3. **GTmetrix** - Comprehensive performance metrics
+4. **PageSpeed Insights** - Mobile and desktop scores
+
+## Real-World Impact
+
+```
+Performance Improvement: +20% faster load
+User Impact: 10% more conversions
+SEO Impact: Higher search rankings
+Server Cost: 30% reduction in bandwidth
+```
+
+### Before & After Example
+
+```
+Before Optimization:
+- Load Time: 4.5s
+- Bundle Size: 850KB
+- LCP: 3.2s
+- CLS: 0.15
+
+After Optimization:
+- Load Time: 1.8s
+- Bundle Size: 250KB
+- LCP: 1.1s
+- CLS: 0.05
+```
+
+---
+
+*Speed matters. Optimize your site and delight your users!*
