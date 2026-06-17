@@ -1,0 +1,56 @@
+---
+const currentPath = Astro.url.pathname;
+
+const isActive = (href: string) => {
+  if (href === "/" && currentPath === "/") return true;
+  if (href !== "/" && currentPath.startsWith(href)) return true;
+  return false;
+};
+---
+
+<header class="sticky top-0 z-50 backdrop-blur-sm bg-white/80 border-b border-gray-200">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="flex items-center space-x-2 group">
+      <div class="flex space-x-1">
+        <div class="w-6 h-6 bg-slate-900 rounded-sm transform group-hover:scale-110 transition-transform"></div>
+        <div class="w-6 h-6 bg-blue-500 rounded-sm transform group-hover:scale-110 transition-transform"></div>
+      </div>
+      <span class="font-bold text-lg text-slate-900">Andre Scutieri</span>
+    </a>
+
+    <!-- Navigation -->
+    <div class="flex items-center space-x-8">
+      <a
+        href="/"
+        class={`transition-colors ${
+          isActive("/")
+            ? "text-slate-900 font-semibold"
+            : "text-slate-600 hover:text-slate-900"
+        }`}
+      >
+        home
+      </a>
+      <a
+        href="/sobre"
+        class={`transition-colors ${
+          isActive("/sobre")
+            ? "text-slate-900 font-semibold"
+            : "text-slate-600 hover:text-slate-900"
+        }`}
+      >
+        sobre
+      </a>
+      <a
+        href="/blog"
+        class={`transition-colors ${
+          isActive("/blog")
+            ? "text-slate-900 font-semibold"
+            : "text-slate-600 hover:text-slate-900"
+        }`}
+      >
+        blog
+      </a>
+    </div>
+  </nav>
+</header>
