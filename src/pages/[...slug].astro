@@ -1,0 +1,26 @@
+---
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+    const regex = /^(\d{4})-(\d{2})-(\d{2})-(.+)/;
+
+    const posts = await getCollection('blog');
+    return posts.filter(entry => {
+        return regex.test(entry.id) // Supress wrong entries
+    }).map(post => {
+        const pathParts = regex.exec(post.id);
+        const slug = pathParts?.slice(1,5).join("/");
+        
+        return {
+            params: { slug },
+            props: { post },
+        }
+    });
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<h1>{ post.data.title }</h1>
+<Content />
