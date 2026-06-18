@@ -1,0 +1,104 @@
+---
+---
+
+<button
+  id="theme-toggle"
+  class="p-2 rounded-lg transition-colors hover:bg-[var(--ctp-surface)] focus:outline-none focus:ring-2 focus:ring-[var(--ctp-accent)]"
+  aria-label="Toggle tema"
+  title="Alternar entre tema claro e escuro"
+>
+  <!-- Sun Icon (Light Mode) -->
+  <svg
+    id="sun-icon"
+    class="w-5 h-5 text-[var(--ctp-accent)]"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      d="M12 18a6 6 0 100-12 6 6 0 000 12zM12 2v4m0 12v4M4.22 4.22l2.83 2.83m4 4l2.83 2.83M2 12h4m12 0h4m-17.78 7.78l2.83-2.83m4-4l2.83-2.83"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+    />
+  </svg>
+
+  <!-- Moon Icon (Dark Mode) -->
+  <svg
+    id="moon-icon"
+    class="w-5 h-5 text-[var(--ctp-accent)] hidden"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+      fill="currentColor"
+    />
+  </svg>
+</button>
+
+<script>
+  const themeToggle = document.getElementById('theme-toggle');
+  const sunIcon = document.getElementById('sun-icon');
+  const moonIcon = document.getElementById('moon-icon');
+  const htmlElement = document.documentElement;
+
+  // Inicializa o tema baseado em localStorage ou preferência do navegador
+  function initializeTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    let currentTheme: string;
+
+    if (savedTheme) {
+      currentTheme = savedTheme;
+    } else {
+      // Respeita a preferência do navegador
+      currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+    }
+
+    applyTheme(currentTheme);
+  }
+
+  // Aplica o tema ao HTML
+  function applyTheme(theme: string) {
+    htmlElement.classList.remove('light', 'dark');
+    htmlElement.classList.add(theme);
+
+    // Atualiza os ícones
+    if (theme === 'dark') {
+      sunIcon.classList.add('hidden');
+      moonIcon.classList.remove('hidden');
+    } else {
+      sunIcon.classList.remove('hidden');
+      moonIcon.classList.add('hidden');
+    }
+
+    // Salva no localStorage
+    localStorage.setItem('theme', theme);
+  }
+
+  // Toggle do tema
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = htmlElement.classList.contains('dark')
+        ? 'dark'
+        : 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      applyTheme(newTheme);
+    });
+  }
+
+  // Inicializa o tema ao carregar
+  initializeTheme();
+
+  // Escuta mudanças na preferência do sistema
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  mediaQuery.addListener((e) => {
+    // Só aplica se não há preferência salva
+    if (!localStorage.getItem('theme')) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+</script>
