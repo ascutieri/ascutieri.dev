@@ -1,4 +1,6 @@
 ---
+import ThemeToggle from "./ThemeToggle.astro";
+
 const currentPath = Astro.url.pathname;
 
 const isActive = (href: string) => {
@@ -8,25 +10,25 @@ const isActive = (href: string) => {
 };
 ---
 
-<header class="sticky top-0 z-50 backdrop-blur-sm bg-white/80 border-b border-gray-200">
+<header class="sticky top-0 z-50 backdrop-blur-sm bg-[var(--ctp-mantle)]/95 border-b border-[var(--ctp-surface)]">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
     <!-- Logo -->
     <a href="/" class="flex items-center space-x-2 group">
       <div class="flex space-x-1">
-        <div class="w-6 h-6 bg-slate-900 rounded-sm transform group-hover:scale-110 transition-transform"></div>
-        <div class="w-6 h-6 bg-blue-500 rounded-sm transform group-hover:scale-110 transition-transform"></div>
+        <div class="w-6 h-6 bg-[var(--ctp-text)] rounded-sm transform group-hover:scale-110 transition-transform"></div>
+        <div class="w-6 h-6 bg-[var(--ctp-accent)] rounded-sm transform group-hover:scale-110 transition-transform"></div>
       </div>
-      <span class="font-bold text-lg text-slate-900">Andre Scutieri</span>
+      <span class="font-bold text-lg text-[var(--ctp-text)]">Andre Scutieri</span>
     </a>
 
-    <!-- Navigation -->
+    <!-- Navigation + Theme Toggle -->
     <div class="flex items-center space-x-8">
       <a
         href="/"
         class={`transition-colors ${
           isActive("/")
-            ? "text-slate-900 font-semibold"
-            : "text-slate-600 hover:text-slate-900"
+            ? "text-[var(--ctp-text)] font-semibold"
+            : "text-[var(--ctp-subtext)] hover:text-[var(--ctp-text)]"
         }`}
       >
         home
@@ -35,8 +37,8 @@ const isActive = (href: string) => {
         href="/sobre"
         class={`transition-colors ${
           isActive("/sobre")
-            ? "text-slate-900 font-semibold"
-            : "text-slate-600 hover:text-slate-900"
+            ? "text-[var(--ctp-text)] font-semibold"
+            : "text-[var(--ctp-subtext)] hover:text-[var(--ctp-text)]"
         }`}
       >
         sobre
@@ -45,12 +47,16 @@ const isActive = (href: string) => {
         href="/blog"
         class={`transition-colors ${
           isActive("/blog")
-            ? "text-slate-900 font-semibold"
-            : "text-slate-600 hover:text-slate-900"
+            ? "text-[var(--ctp-text)] font-semibold"
+            : "text-[var(--ctp-subtext)] hover:text-[var(--ctp-text)]"
         }`}
       >
         blog
       </a>
+
+      <div class="w-px h-6 bg-[var(--ctp-surface)]"></div>
+
+      <ThemeToggle />
     </div>
   </nav>
 </header>
