@@ -1,2 +1,140 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+@theme {
+  --color-base: var(--ctp-base);
+  --color-mantle: var(--ctp-mantle);
+  --color-crust: var(--ctp-crust);
+  --color-surface: var(--ctp-surface);
+  --color-text: var(--ctp-text);
+  --color-subtext: var(--ctp-subtext);
+  --color-accent: var(--ctp-accent);
+  --color-red: var(--ctp-red);
+  --color-green: var(--ctp-green);
+  --color-yellow: var(--ctp-yellow);
+}
+
+:root {
+  /* Catppuccin Latte (Light) - Default */
+  --ctp-base: #eff1f5;
+  --ctp-mantle: #e6e9ef;
+  --ctp-crust: #dce0e8;
+  --ctp-surface: #ccd0da;
+  --ctp-text: #4c4f69;
+  --ctp-subtext: #6c6f85;
+  --ctp-accent: #1e66f5;
+  --ctp-red: #d20f39;
+  --ctp-green: #40a02b;
+  --ctp-yellow: #df8e1d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Catppuccin Mocha (Dark) */
+    --ctp-base: #1e1e2e;
+    --ctp-mantle: #181825;
+    --ctp-crust: #11111b;
+    --ctp-surface: #313244;
+    --ctp-text: #cdd6f4;
+    --ctp-subtext: #a6adc8;
+    --ctp-accent: #89b4fa;
+    --ctp-red: #f38ba8;
+    --ctp-green: #a6e3a1;
+    --ctp-yellow: #f9e2af;
+  }
+}
+
+/* Dark mode manual override */
+:root.dark {
+  --ctp-base: #1e1e2e;
+  --ctp-mantle: #181825;
+  --ctp-crust: #11111b;
+  --ctp-surface: #313244;
+  --ctp-text: #cdd6f4;
+  --ctp-subtext: #a6adc8;
+  --ctp-accent: #89b4fa;
+  --ctp-red: #f38ba8;
+  --ctp-green: #a6e3a1;
+  --ctp-yellow: #f9e2af;
+}
+
+/* Light mode manual override */
+:root.light {
+  --ctp-base: #eff1f5;
+  --ctp-mantle: #e6e9ef;
+  --ctp-crust: #dce0e8;
+  --ctp-surface: #ccd0da;
+  --ctp-text: #4c4f69;
+  --ctp-subtext: #6c6f85;
+  --ctp-accent: #1e66f5;
+  --ctp-red: #d20f39;
+  --ctp-green: #40a02b;
+  --ctp-yellow: #df8e1d;
+}
+
+html {
+  @apply bg-[var(--ctp-base)] text-[var(--ctp-text)] transition-colors duration-300;
+}
+
+body {
+  @apply bg-[var(--ctp-base)] text-[var(--ctp-text)];
+}
+
+/* Prose customization for Catppuccin */
+.prose {
+  @apply text-[var(--ctp-text)];
+}
+
+.prose a {
+  @apply text-[var(--ctp-accent)] hover:text-[var(--ctp-accent)]/80;
+}
+
+.prose strong {
+  @apply text-[var(--ctp-text)];
+}
+
+.prose em {
+  @apply text-[var(--ctp-text)];
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  @apply text-[var(--ctp-text)];
+}
+
+.prose code {
+  @apply bg-[var(--ctp-surface)] text-[var(--ctp-accent)] px-2 py-1 rounded;
+}
+
+.prose pre {
+  @apply bg-[var(--ctp-crust)] border border-[var(--ctp-surface)];
+}
+
+.prose pre code {
+  @apply bg-transparent text-[var(--ctp-text)];
+}
+
+.prose blockquote {
+  @apply border-l-4 border-[var(--ctp-accent)] bg-[var(--ctp-surface)]/30 italic pl-4;
+  @apply text-[var(--ctp-subtext)];
+}
+
+.prose hr {
+  @apply border-[var(--ctp-surface)];
+}
+
+.prose table {
+  @apply border-[var(--ctp-surface)];
+}
+
+.prose thead {
+  @apply bg-[var(--ctp-surface)] text-[var(--ctp-text)];
+}
+
+.prose tbody tr:nth-child(even) {
+  @apply bg-[var(--ctp-surface)]/30;
+}
