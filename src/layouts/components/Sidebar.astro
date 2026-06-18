@@ -1,0 +1,37 @@
+---
+interface Props {
+  headings?: Array<{ depth: number; slug: string; text: string }>;
+}
+
+const { headings = [] } = Astro.props;
+
+// Filter only h2 and h3 headings for TOC
+const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
+---
+
+<aside class="hidden lg:block sticky top-24 h-fit w-64 overflow-y-auto p-4">
+  <div class="space-y-4">
+    <div>
+      <h3 class="text-sm font-semibold text-slate-900 mb-3 uppercase tracking-wider">
+        Nesta página
+      </h3>
+
+      {tocHeadings.length > 0 ? (
+        <nav class="space-y-2">
+          {tocHeadings.map((heading) => (
+            <a
+              href={`#${heading.slug}`}
+              class={`block text-sm transition-colors hover:text-blue-600 ${
+                heading.depth === 3 ? "pl-4 text-slate-600" : "text-slate-700"
+              }`}
+            >
+              {heading.text}
+            </a>
+          ))}
+        </nav>
+      ) : (
+        <p class="text-sm text-slate-500">Sem seções disponíveis</p>
+      )}
+    </div>
+  </div>
+</aside>
