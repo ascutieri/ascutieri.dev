@@ -111,11 +111,20 @@ body {
 }
 
 .prose pre {
-  @apply bg-[var(--ctp-crust)] border border-[var(--ctp-surface)];
+  @apply bg-[var(--ctp-crust)] border border-[var(--ctp-surface)] overflow-x-auto;
+  padding: 1rem;
 }
 
 .prose pre code {
   @apply bg-transparent text-[var(--ctp-text)];
+  padding: 0;
+  display: block;
+  white-space: pre;
+}
+
+.prose pre code::before,
+.prose pre code::after {
+  content: none;
 }
 
 .prose blockquote {
