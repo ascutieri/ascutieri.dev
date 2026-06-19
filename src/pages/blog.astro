@@ -1,0 +1,34 @@
+---
+import { getCollection } from "astro:content";
+import { generateTextFromDate } from "../utils";
+import Archive from "../layouts/Archive.astro";
+
+const posts = await getCollection('blog');
+
+const groupMap = new Map();
+for (const post of posts) {
+	const pubDate = post.data.pubDate;
+
+	const key = `${pubDate.getFullYear()}-${pubDate.getMonth()}`;
+
+	if (groupMap.has(key)) {
+		groupMap.set(key, groupMap.get(key).add(post));
+	} else {
+		const dateSet = new Set();
+		dateSet.add(post);
+		groupMap.set(key, dateSet);
+	}
+}
+
+const sortedMap = new Map([...groupMap].sort().reverse());
+
+const headings = [...sortedMap.keys()].map(item => {
+	return {
+		depth: 2,
+		slug: item,
+		text: generateTextFromDate(item),
+	}
+});
+---
+
+<Archive content={sortedMap} headings={headings} />
