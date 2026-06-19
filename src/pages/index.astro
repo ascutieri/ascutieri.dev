@@ -1,5 +1,34 @@
 ---
+import { getCollection } from "astro:content";
+import { generateTextFromDate } from "../utils";
+import MonthEntries from "../layouts/components/MonthEntries.astro";
 
+const posts = await getCollection('blog');
+
+const groupMap = new Map();
+for (const post of posts) {
+	const pubDate = post.data.pubDate;
+
+	const key = `${pubDate.getFullYear()}-${pubDate.getMonth()}`;
+
+	if (groupMap.has(key)) {
+		groupMap.set(key, groupMap.get(key).add(post));
+	} else {
+		const dateSet = new Set();
+		dateSet.add(post);
+		groupMap.set(key, dateSet);
+	}
+}
+
+const sortedMap = new Map([...groupMap].sort().reverse().slice(0,12));
+
+const headings = [...sortedMap.keys()].map(item => {
+	return {
+		depth: 1,
+		slug: item,
+		text: generateTextFromDate(item),
+	}
+});
 ---
 
 <html lang="en">
@@ -13,5 +42,8 @@
 	</head>
 	<body>
 		<h1>Astro</h1>
+		{ [...sortedMap.keys()].map(key => (
+			<MonthEntries id={key} items={sortedMap.get(key)} />
+		)) }
 	</body>
 </html>
