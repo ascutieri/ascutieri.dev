@@ -1,0 +1,63 @@
+---
+title: "Mobile-First Design Principles"
+description: "Designing responsive applications with mobile-first approach for better UX."
+pubDate: 2026-04-08
+---
+
+# Mobile-First Design Principles
+
+Mobile-first design ensures your app works everywhere. Let's master it.
+
+## Mobile-First CSS
+
+```css
+/* Start with mobile */
+.button {
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+/* Scale up */
+@media (min-width: 768px) {
+  .button {
+    padding: 16px 24px;
+    font-size: 16px;
+  }
+}
+```
+
+## Breakpoints
+
+```css
+/* Mobile */
+@media (min-width: 320px) { }
+
+/* Tablet */
+@media (min-width: 768px) { }
+
+/* Desktop */
+@media (min-width: 1024px) { }
+
+/* Large Desktop */
+@media (min-width: 1280px) { }
+```
+
+## Touch-Friendly Design
+
+| Element | Desktop | Mobile |
+|---------|---------|--------|
+| Button | 40px | 48px minimum |
+| Spacing | 16px | 24px+ |
+| Text | 14px | 16px minimum |
+| Tap target | 44x44px | Minimum size |
+
+## Performance Tips
+
+- Optimize images for mobile
+- Minimize CSS/JS
+- Prioritize above-the-fold content
+- Use lazy loading
+
+---
+
+Mobile-first: Reach everyone, everywhere!

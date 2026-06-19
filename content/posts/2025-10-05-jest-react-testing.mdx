@@ -1,0 +1,55 @@
+---
+title: "Testing React Components with Jest"
+description: "Write effective unit tests for React components using Jest and React Testing Library."
+pubDate: 2025-10-05
+---
+
+# Testing React Components with Jest
+
+Jest is the de-facto standard for React testing. Let's master it.
+
+## Component Test
+
+```javascript
+import { render, screen } from '@testing-library/react';
+import Button from './Button';
+
+test('renders button with text', () => {
+  render(<Button>Click me</Button>);
+  expect(screen.getByText('Click me')).toBeInTheDocument();
+});
+```
+
+## User Interaction
+
+```javascript
+import userEvent from '@testing-library/user-event';
+
+test('calls onClick on button click', async () => {
+  const onClick = jest.fn();
+  render(<Button onClick={onClick}>Click</Button>);
+  
+  await userEvent.click(screen.getByRole('button'));
+  expect(onClick).toHaveBeenCalled();
+});
+```
+
+## Test Structure
+
+| Part | Purpose |
+|------|---------|
+| Arrange | Set up test data |
+| Act | Execute action |
+| Assert | Verify result |
+
+## Common Queries
+
+```javascript
+screen.getByRole('button')      // Most accessible
+screen.getByText('Label')       // By text
+screen.getByTestId('custom-id') // Last resort
+```
+
+---
+
+Good tests give you confidence to refactor!

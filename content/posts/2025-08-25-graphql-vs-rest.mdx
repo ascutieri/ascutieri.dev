@@ -1,0 +1,59 @@
+---
+title: "GraphQL vs REST: API Design Showdown"
+description: "Compare GraphQL and REST APIs to understand which is right for your project."
+pubDate: 2025-08-25
+---
+
+# GraphQL vs REST: API Design Showdown
+
+Two dominant API paradigms. Let's compare them thoroughly.
+
+## REST Endpoint
+
+```
+GET /api/users/123
+GET /api/users/123/posts
+GET /api/users/123/posts/1/comments
+```
+
+## GraphQL Query
+
+```graphql
+query {
+  user(id: 123) {
+    name
+    posts {
+      title
+      comments {
+        text
+      }
+    }
+  }
+}
+```
+
+## Comparison
+
+| Aspect | REST | GraphQL |
+|--------|------|---------|
+| Data Fetching | Multiple requests | Single request |
+| Over-fetching | Common | None |
+| Under-fetching | Rare | None |
+| Caching | HTTP cache | Complex |
+| Learning Curve | Low | Medium |
+
+## When to Use
+
+**REST:**
+- Simple CRUD operations
+- Simple data structures
+- Heavy caching needed
+
+**GraphQL:**
+- Complex nested data
+- Mobile optimization
+- Multiple client types
+
+---
+
+Choose based on your data model complexity!

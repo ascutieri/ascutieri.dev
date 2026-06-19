@@ -1,0 +1,58 @@
+---
+title: "Authentication with JWT Tokens"
+description: "Implementing secure JWT-based authentication for your applications."
+pubDate: 2025-09-12
+---
+
+# Authentication with JWT Tokens
+
+JWT is a modern approach to stateless authentication. Let's implement it properly.
+
+## JWT Structure
+
+```
+Header.Payload.Signature
+eyJhbGc.eyJpc3M.SflKxw
+```
+
+## Create Token
+
+```javascript
+const jwt = require('jsonwebtoken');
+
+const token = jwt.sign(
+  { userId: 123 },
+  process.env.SECRET,
+  { expiresIn: '24h' }
+);
+```
+
+## Verify Token
+
+```javascript
+const decoded = jwt.verify(token, process.env.SECRET);
+console.log(decoded.userId);
+```
+
+## Best Practices
+
+| Practice | Description |
+|----------|-------------|
+| Secure Secret | Use strong, random secret |
+| Short Expiry | 15min access, refresh tokens |
+| HTTPS Only | Never send over HTTP |
+| Signature Check | Always verify |
+| Secure Storage | httpOnly cookies |
+
+## Refresh Token Flow
+
+```
+1. Login → Access token (15min) + Refresh token (7d)
+2. Access token expires
+3. Use refresh token to get new access token
+4. Continue operations
+```
+
+---
+
+JWT tokens: Stateless, scalable, secure!

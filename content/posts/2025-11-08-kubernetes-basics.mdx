@@ -1,0 +1,62 @@
+---
+title: "Kubernetes Basics: Container Orchestration"
+description: "Introduction to Kubernetes and container orchestration fundamentals."
+pubDate: 2025-11-08
+---
+
+# Kubernetes Basics: Container Orchestration
+
+Kubernetes is the industry standard for container orchestration.
+
+## Core Concepts
+
+```yaml
+Pod: Smallest deployable unit
+Service: Expose pods to network
+Deployment: Manage pod replicas
+Ingress: External access
+```
+
+## Simple Deployment
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+```
+
+## Common Commands
+
+```bash
+kubectl create deployment myapp --image=myapp:1.0
+kubectl scale deployment myapp --replicas=5
+kubectl rollout status deployment/myapp
+kubectl logs pod/myapp-xyz
+```
+
+| Command | Purpose |
+|---------|---------|
+| apply | Create/update resources |
+| get | List resources |
+| describe | Detailed info |
+| delete | Remove resources |
+
+---
+
+Kubernetes: Powerful, complex, worth learning!

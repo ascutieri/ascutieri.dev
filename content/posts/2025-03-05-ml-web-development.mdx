@@ -1,0 +1,56 @@
+---
+title: "Machine Learning in Web Development"
+description: "Introduction to machine learning for web developers using TensorFlow.js."
+pubDate: 2025-03-05
+---
+
+# Machine Learning in Web Development
+
+ML is becoming accessible to web developers. Let's explore it.
+
+## TensorFlow.js
+
+```javascript
+import * as tf from '@tensorflow/tfjs';
+
+// Create a simple model
+const model = tf.sequential({
+  layers: [
+    tf.layers.dense({ units: 10, activation: 'relu', inputShape: [4] }),
+    tf.layers.dense({ units: 3, activation: 'softmax' })
+  ]
+});
+
+// Compile
+model.compile({
+  optimizer: tf.train.adam(0.01),
+  loss: 'categoricalCrossentropy',
+  metrics: ['accuracy']
+});
+```
+
+## Common Use Cases
+
+```javascript
+// Image classification
+const predictions = model.predict(tf.tensor4d([image]));
+
+// Text classification
+const embedding = tf.layers.embedding().apply(tokens);
+
+// Anomaly detection
+const anomalyScore = calculateDistance(data, mean);
+```
+
+## ML.js Libraries
+
+| Library | Purpose |
+|---------|---------|
+| TensorFlow.js | Deep learning |
+| ML.js | Classic ML algorithms |
+| Brain.js | Neural networks |
+| OpenCV.js | Computer vision |
+
+---
+
+ML: Bringing AI to the browser!

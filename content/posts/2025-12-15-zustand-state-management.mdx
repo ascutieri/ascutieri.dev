@@ -1,0 +1,64 @@
+---
+title: "Modern State Management with Zustand"
+description: "Lightweight state management using Zustand for React applications."
+pubDate: 2025-12-15
+---
+
+# Modern State Management with Zustand
+
+Zustand offers a simpler alternative to Redux. Let's explore it.
+
+## Basic Store
+
+```javascript
+import create from 'zustand';
+
+const useStore = create((set) => ({
+  count: 0,
+  increment: () => set((state) => ({ count: state.count + 1 })),
+  decrement: () => set((state) => ({ count: state.count - 1 })),
+}));
+```
+
+## Usage in Component
+
+```jsx
+function Counter() {
+  const { count, increment } = useStore();
+  
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>+</button>
+    </div>
+  );
+}
+```
+
+## Advantages
+
+| Feature | Zustand | Redux |
+|---------|---------|-------|
+| Bundle Size | 2KB | 10KB |
+| Learning Curve | Simple | Complex |
+| Setup Time | 5 min | 30 min |
+| Boilerplate | Minimal | Lots |
+
+## Advanced Features
+
+```javascript
+// Middleware
+const useStore = create(
+  devtools(
+    persist((set) => ({...}))
+  )
+);
+
+// Slices/modules
+const useUserStore = create((set) => ({...}));
+const useThemeStore = create((set) => ({...}));
+```
+
+---
+
+Zustand: Simple, powerful state management!
