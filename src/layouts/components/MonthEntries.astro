@@ -10,15 +10,41 @@ const { id, items } = Astro.props;
 
 const title = generateTextFromDate(id);
 ---
-<div>
-    <h1 id={id}>{ title }</h1>
-    <ul>
-        { Array.from(items).map(entry => {
-            const regex = /^(\d{4})-(\d{2})-(\d{2})-(.+)/;
-            const pathParts = regex.exec(entry.id);
-            const slug = pathParts?.slice(1,5).join("/");
 
-            return <li><a href={slug}>{entry.data.title}</a></li>
-        })}
-    </ul>
-</div>
+<section class="mb-16">
+  <h2 
+    id={id}
+    class="text-3xl md:text-4xl font-bold text-[var(--ctp-text)] mb-8 pb-4 border-b-2 border-[var(--ctp-accent)]"
+  >
+    {title}
+  </h2>
+
+  <div class="space-y-3">
+    {Array.from(items).map((entry: any) => {
+      const regex = /^(\d{4})-(\d{2})-(\d{2})-(.+)/;
+      const pathParts = regex.exec(entry.id);
+      const slug = pathParts?.slice(1, 5).join("/");
+
+      return (
+        <a
+          href={`/${slug}`}
+          class="block group"
+        >
+          <div class="flex items-start gap-3 p-3 rounded-lg transition-all duration-200 hover:bg-[var(--ctp-surface)]/50">
+            <div class="flex-shrink-0 w-1 h-6 bg-[var(--ctp-accent)] rounded-full mt-1 group-hover:h-8 transition-all"></div>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-lg font-semibold text-[var(--ctp-text)] group-hover:text-[var(--ctp-accent)] transition-colors line-clamp-2">
+                {entry.data.title}
+              </h3>
+              {entry.data.description && (
+                <p class="text-sm text-[var(--ctp-subtext)] mt-1 line-clamp-1">
+                  {entry.data.description}
+                </p>
+              )}
+            </div>
+          </div>
+        </a>
+      );
+    })}
+  </div>
+</section>
