@@ -30,6 +30,10 @@ const { content, headings = [] } = Astro.props;
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-5 gap-8">
         <!-- Main content area -->
         <article class="lg:col-span-4">
+            <h1 class="text-5xl md:text-6xl font-bold text-[var(--ctp-text)] text-center mb-16">
+              Recentes
+            </h1>
+
             { content.keys().map((key: string) => (
                 <MonthEntries id={key} items={content.get(key)} />
             )) }
