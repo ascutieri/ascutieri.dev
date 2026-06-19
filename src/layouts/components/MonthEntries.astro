@@ -1,0 +1,24 @@
+---
+import { generateTextFromDate } from '../../utils';
+
+interface Props {
+    id: string;
+    items: any;
+}
+
+const { id, items } = Astro.props;
+
+const title = generateTextFromDate(id);
+---
+<div>
+    <h1 id={id}>{ title }</h1>
+    <ul>
+        { Array.from(items).map(entry => {
+            const regex = /^(\d{4})-(\d{2})-(\d{2})-(.+)/;
+            const pathParts = regex.exec(entry.id);
+            const slug = pathParts?.slice(1,5).join("/");
+
+            return <li><a href={slug}>{entry.data.title}</a></li>
+        })}
+    </ul>
+</div>
