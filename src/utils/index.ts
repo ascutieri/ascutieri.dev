@@ -3,6 +3,11 @@ export const capitalize = (text: string) => {
 }
 
 export function generateTextFromDate(text: string): string {
-    const date = new Date(text);
+	const parts = text.split("-");
+	const month = Number(parts[1]) + 1;
+
+	const newText = `${parts[0]}-${month}`;
+
+    const date = new Date(newText);
 	return `${date.getFullYear()} - ${capitalize(date.toLocaleDateString('pt-BR',{month: 'long'}))}`;
 }
