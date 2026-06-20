@@ -13,12 +13,8 @@ const isActive = (href: string) => {
 <header class="sticky top-0 z-50 backdrop-blur-sm bg-[var(--ctp-mantle)]/95 border-b border-[var(--ctp-surface)]">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
     <!-- Logo -->
-    <a href="/" class="flex items-center space-x-2 group">
-      <div class="flex space-x-1">
-        <div class="w-6 h-6 bg-[var(--ctp-text)] rounded-sm transform group-hover:scale-110 transition-transform"></div>
-        <div class="w-6 h-6 bg-[var(--ctp-accent)] rounded-sm transform group-hover:scale-110 transition-transform"></div>
-      </div>
-      <span class="font-bold text-lg text-[var(--ctp-text)]">Andre Scutieri</span>
+    <a href="/" class="flex items-center space-x-3 group">
+      <span class="font-bold text-lg text-[var(--ctp-text)] hidden sm:inline">Andre <span class="text-[var(--ctp-accent)]">Scutieri</span></span>
     </a>
 
     <!-- Navigation + Theme Toggle -->
