@@ -8,9 +8,11 @@ interface Props {
   pubDate: Date;
   updateDate?: Date;
   headings?: Array<{ depth: number; slug: string; text: string }>;
+  slug?: string;
+  postId?: string;
 }
 
-const { title, description, pubDate, updateDate, headings = [] } = Astro.props;
+const { title, description, pubDate, updateDate, headings = [], slug, postId } = Astro.props;
 
 const formattedDate = pubDate.toLocaleDateString("pt-BR", {
   year: "numeric",
@@ -28,7 +30,7 @@ const formattedUpdateDate = updateDate?.toLocaleDateString("pt-BR", {
 <Base>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-5 gap-8">
     <!-- Main content area -->
-    <article class="lg:col-span-4">
+    <article class="lg:col-span-4" id="post-content" data-slug={slug} data-post-id={postId}>
       <!-- Article header -->
       <div class="mb-12">
         <h1 class="text-4xl md:text-5xl font-bold text-[var(--ctp-text)] mb-4">
@@ -67,18 +69,36 @@ const formattedUpdateDate = updateDate?.toLocaleDateString("pt-BR", {
         <slot />
       </div>
 
-      <!-- Comments section placeholder -->
-      <section id="comments" class="border-t border-[var(--ctp-surface)] pt-12">
-        <h2 class="text-2xl font-bold text-[var(--ctp-text)] mb-6">Comentários</h2>
-        <div class="bg-[var(--ctp-surface)] rounded-lg p-8 text-center">
-          <p class="text-[var(--ctp-subtext)]">
-            Os comentários serão em breve integrados nesta página.
-          </p>
-        </div>
-      </section>
+      { import.meta.env.PROD && (
+        <section id="comments" class="border-t border-[var(--ctp-surface)] pt-12 mb-6">
+          <h2 class="text-2xl font-bold text-[var(--ctp-text)] mb-6">Comentários</h2>
+          <div class="bg-[var(--ctp-surface)] rounded-lg p-8 text-center" id="disqus_thread">
+
+            <noscript>
+              <p class="text-[var(--ctp-subtext)]">
+                Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+              </p>
+            </noscript>
+          </div>
+        </section>
+      )}
     </article>
 
     <!-- Sidebar for TOC -->
     <Sidebar headings={headings} />
   </div>
 </Base>
+
+<script is:inline>
+    const article = document.getElementById("post-content");
+    var disqus_config = function () {
+        this.page.url = article.dataset.slug; 
+        this.page.identifier = article.dataset.postId;
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://ascutieri.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
