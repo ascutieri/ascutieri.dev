@@ -20,16 +20,21 @@ export async function getStaticPaths() {
     });
 }
 
+console.log(Astro.params.slug);
+
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
 ---
 
+
 <Post
-  title={post.data.title}
-  description={post.data.description}
-  pubDate={post.data.pubDate}
-  updateDate={post.data.updateDate}
-  headings={headings}
->
-  <Content />
+    title={post.data.title}
+    description={post.data.description}
+    pubDate={post.data.pubDate}
+    updateDate={post.data.updateDate}
+    headings={headings}
+    slug={`${Astro.site}${Astro.params.slug}`}
+    postId={Astro.props.post.id}
+    >
+        <Content />
 </Post>
