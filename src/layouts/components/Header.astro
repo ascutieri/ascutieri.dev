@@ -13,12 +13,12 @@ const isActive = (href: string) => {
 <header class="sticky top-0 z-50 backdrop-blur-sm bg-[var(--ctp-mantle)]/95 border-b border-[var(--ctp-surface)]">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
     <!-- Logo -->
-    <a href="/" class="flex items-center space-x-3 group">
-      <span class="font-bold text-lg text-[var(--ctp-text)] hidden sm:inline">Andre <span class="text-[var(--ctp-accent)]">Scutieri</span></span>
+    <a href="/" class="flex items-center space-x-2 group">
+      <span class="font-bold text-lg text-[var(--ctp-text)] sm:inline">Andre <span class="text-[var(--ctp-accent)]">Scutieri</span></span>
     </a>
 
-    <!-- Navigation + Theme Toggle -->
-    <div class="flex items-center space-x-8">
+    <!-- Desktop Navigation + Theme Toggle -->
+    <div class="hidden md:flex items-center space-x-8">
       <a
         href="/"
         class={`transition-colors ${
@@ -54,5 +54,78 @@ const isActive = (href: string) => {
 
       <ThemeToggle />
     </div>
+
+    <!-- Mobile Menu Button + Theme Toggle -->
+    <div class="md:hidden flex items-center space-x-4">
+      <button
+        id="mobile-menu-btn"
+        class="p-2 rounded-lg hover:bg-[var(--ctp-surface)] transition-colors"
+        aria-label="Toggle menu"
+      >
+        <i class="fas fa-bars text-[var(--ctp-text)] text-xl"></i>
+      </button>
+    </div>
   </nav>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden absolute top-full left-0 right-0 bg-[var(--ctp-mantle)] border-b border-[var(--ctp-surface)] shadow-lg"
+  >
+    <div class="px-4 py-3 space-y-2">
+      <a
+        href="/"
+        class={`block px-3 py-2 rounded-lg transition-colors ${
+          isActive("/")
+            ? "bg-[var(--ctp-surface)] text-[var(--ctp-text)] font-semibold"
+            : "text-[var(--ctp-subtext)] hover:bg-[var(--ctp-surface)] hover:text-[var(--ctp-text)]"
+        }`}
+      >
+        home
+      </a>
+      <a
+        href="/sobre"
+        class={`block px-3 py-2 rounded-lg transition-colors ${
+          isActive("/sobre")
+            ? "bg-[var(--ctp-surface)] text-[var(--ctp-text)] font-semibold"
+            : "text-[var(--ctp-subtext)] hover:bg-[var(--ctp-surface)] hover:text-[var(--ctp-text)]"
+        }`}
+      >
+        sobre
+      </a>
+      <a
+        href="/blog"
+        class={`block px-3 py-2 rounded-lg transition-colors ${
+          isActive("/blog")
+            ? "bg-[var(--ctp-surface)] text-[var(--ctp-text)] font-semibold"
+            : "text-[var(--ctp-subtext)] hover:bg-[var(--ctp-surface)] hover:text-[var(--ctp-text)]"
+        }`}
+      >
+        blog
+      </a>
+    </div>
+  </div>
 </header>
+
+<script>
+  const menuBtn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
+
+  menuBtn?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
+  });
+
+  // Close menu when a link is clicked
+  menu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      menu.classList.add("hidden");
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (e.target !== menuBtn && !menuBtn?.contains(e.target as Node) && !menu?.contains(e.target as Node)) {
+      menu?.classList.add("hidden");
+    }
+  });
+</script>
